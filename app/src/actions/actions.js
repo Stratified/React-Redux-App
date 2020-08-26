@@ -1,16 +1,25 @@
 import axios from 'axios';
-import { NEW_PICTURE } from '../reducers/rootReducer';
+import {
+	NEW_PICTURE,
+	GET_NEW_PICTURE,
+	GET_NEW_PICTURE_SUCCESS,
+} from '../reducers/rootReducer';
+
+const headers = {
+	Accept: 'application/json/image/*',
+};
 
 export const newPicture = () => (dispatch) => {
-	dispatch({ type: NEW_PICTURE });
+	dispatch({ type: GET_NEW_PICTURE });
+	console.log('newPicture dispatch.');
 
 	axios
-		.get(
-			`https://randomfox.ca/floof/images/${Math.floor(
-				Math.random() * 1000
-			)}.jpg`
-		)
+		.get(`https://cors-anywhere.herokuapp.com/https://randomfox.ca/floof`, {
+			headers: headers,
+		})
 		.then((res) => {
-			dispatch({ payload: res.data });
-		});
+			console.log(res);
+			dispatch({ type: GET_NEW_PICTURE_SUCCESS, payload: res.data.image });
+		})
+		.catch((err) => console.log(err));
 };
