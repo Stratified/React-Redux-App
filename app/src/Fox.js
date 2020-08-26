@@ -7,10 +7,10 @@ const Fox = (props) => {
 		props.newPicture();
 	}, [props.newPicture]);
 	return (
-		<div>
+		<div className='FoxContainer'>
 			<img src={props.image} alt='Fox picture placeholder.'></img>
 			<br />
-			<button onClick={props.newPicture}>New picture.</button>
+			<button onClick={props.newPicture}>New Picture</button>
 		</div>
 	);
 };
